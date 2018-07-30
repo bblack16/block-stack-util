@@ -1,0 +1,17 @@
+class <%= @options.class_name %> < BlockStack::Server
+
+  # Set custom configuration for your application below.
+  config(
+    app_name: '<%= @options.app_name %>'
+  )
+
+  # Builds the default '/' route. Remove this or create your own index file
+  # in views.
+  get_api '/' do
+    {
+      message: "Wecome to #{config.app_name}. Powered by BlockStack.",
+      time: Time.now,
+      version: BlockStack::VERSION
+    }
+  end
+end

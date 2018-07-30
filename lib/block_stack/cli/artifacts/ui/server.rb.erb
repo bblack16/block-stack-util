@@ -1,0 +1,16 @@
+class <%= @options.class_name %> < BlockStack::Server
+
+  # Set custom configuration for your application below.
+  config(
+    app_name: '<%= @options.app_name %>'
+  )
+
+  # Add path to custom assets. You can add additional paths by copying this line.
+  add_asset_path(File.expand_path('../../app', __FILE__))
+
+  # Builds the default '/' route. Remove this or create your own index file
+  # in views.
+  get '/' do
+    slim :index
+  end
+end
