@@ -1,5 +1,7 @@
 module BlockStack
 
+  # TODO Add config autoloading and file watchdog for updating
+
   def self.settings
     @settings ||= default_settings
   end
