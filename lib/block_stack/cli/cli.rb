@@ -1,4 +1,5 @@
-require 'bblib/cli'
+# require 'bblib/cli'
+require_relative '../../../../bblib/lib/bblib/cli'
 require_relative '../util'
 require_relative 'lib/constants'
 require_relative 'lib/shared'

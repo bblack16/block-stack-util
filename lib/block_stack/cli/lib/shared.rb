@@ -10,9 +10,9 @@ module BlockStack
       end
     end
 
-    def default_options
+    def self.default_options
       {
-        block_stack_verison: BLOCK_STACK_VERSION
+        block_stack_version: BLOCK_STACK_VERSION
       }
     end
 
