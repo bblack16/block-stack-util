@@ -1,4 +1,5 @@
 require 'bblib' unless defined?(BBLib::VERSION)
+require 'bblib/html' unless defined?(BBLib::HTML)
 
 require_relative 'util/version'
 require_relative 'util/constants'
