@@ -1,0 +1,7 @@
+class <%= @options.class_name %>
+  include BlockStack::Model::Dynamic()
+
+  <% @options.fields.each do |field, type| %>
+  attr_<%= type %> :<%= field %>
+  <% end %>
+end

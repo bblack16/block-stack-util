@@ -1,0 +1,10 @@
+---
+default:
+  type: :sqlite
+  configuration:
+    - <%= @options.db_path %>
+
+test:
+  type: :sqlite
+  configuration:
+    - <%= @options.test_db_path %>

@@ -8,7 +8,8 @@ module BlockStack
       'app',
       'app/models',
       'app/controllers',
-      'config'
+      'config',
+      'data'
     ]
 
     UI_FOLDERS = [
@@ -21,17 +22,19 @@ module BlockStack
       'lib/server.rb' => File.join(ARTIFACT_PATH, 'api/server.rb.erb'),
       'Gemfile' => File.join(ARTIFACT_PATH, 'api/Gemfile.erb'),
       'run.rb' => File.join(ARTIFACT_PATH, 'api/run.rb.erb'),
-      'console.rb' => File.join(ARTIFACT_PATH, 'shared/console.rb')
+      'console.rb' => File.join(ARTIFACT_PATH, 'shared/console.rb'),
+      'config/database.yml' => File.join(ARTIFACT_PATH, 'shared/database.yml.erb')
     }
 
     UI_TEMPLATES = {
       'lib/server.rb' => File.join(ARTIFACT_PATH, 'ui/server.rb.erb'),
       'Gemfile' => File.join(ARTIFACT_PATH, 'ui/Gemfile.erb'),
       'run.rb' => File.join(ARTIFACT_PATH, 'ui/run.rb.erb'),
-      'console.rb' => File.join(ARTIFACT_PATH, 'shared/console.rb')
+      'console.rb' => File.join(ARTIFACT_PATH, 'shared/console.rb'),
+      'config/database.yml' => File.join(ARTIFACT_PATH, 'shared/database.yml.erb')
     }
 
-    options = Parsers::INIT.parse(ARGV[1..-1])
+    options = Parsers::INIT.parse
 
     if ['-h', '--help'].any? { |flag| options.app_name == flag } || options.help?
       puts Parsers::INIT.help
@@ -41,7 +44,8 @@ module BlockStack
     options.output = File.join(options.output || Dir.pwd, options.app_name.method_case)
     options.class_name = options.app_name.to_s.class_case unless options.class_name
 
-    puts options
+    options.db_path = File.join(options.output, "data/#{options.class_name.method_case}.db")
+    options.test_db_path = File.join(options.output, "data/test_#{options.class_name.method_case}.db")
 
     gen_folders(options.output, API_FOLDERS)
     gen_folders(options.output, UI_FOLDERS) unless options.api?

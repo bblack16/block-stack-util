@@ -1,6 +1,15 @@
 module BlockStack
   module CLI
 
+    def self.app_path
+      path = Dir.pwd
+      path.split('/').reverse.each do |part|
+        return path if File.exist?(File.join(path, 'run.rb'))
+        path.gsub!(/\/#{part}$/)
+      end
+      nil
+    end
+
     def self.load_commands(path = File.expand_path('../../commands', __FILE__))
       BBLib.scan_files(path, '*.rb').hmap do |file|
         [
@@ -16,8 +25,21 @@ module BlockStack
       }
     end
 
+    def self.logo
+      %"
+   ____  _            _     _____ _             _
+  |  _ \\| |          | |   / ____| |           | |
+  | |_) | | ___   ___| | _| (___ | |_ __ _  ___| | __
+  |  _ <| |/ _ \\ / __| |/ /\\___ \\| __/ _` |/ __| |/ /
+  | |_) | | (_) | (__|   < ____) | || (_| | (__|   <
+  |____/|_|\\___/ \\___|_|\\_\\_____/ \\__\\__,_|\\___|_|\\_\\
+  \\_________________ VERSION #{BBLib::Console.colorize(BLOCK_STACK_VERSION, :light_green)} _________________/
+      "
+    end
+
     def self.help_menu(commands)
       max = commands.keys.map(&:to_s).map(&:size).max + 3
+      logo + "\n" +
       "Usage: block_stack <command> [options...]" +
       "\n\nCOMMANDS:\n\n\t" +
       commands.map { |command, desc| "#{command.to_s.ljust(max, ' ')}#{desc}"}.join("\n\t")
@@ -46,8 +68,12 @@ module BlockStack
         log("Creating template for #{output.file_name} (#{template_file.file_name(false)})", :info)
         ERB.new(File.read(template_file)).result(opts.delete(:binding) || binding).to_file(output, mode: 'w')
       else
-        log("Skipping template #{template_file} since the output already exists at #{output}", :warn)
+        log("Skipping template #{template_file} since the file already exists at #{output}", :warn)
       end
+    end
+
+    def self.artifact(path)
+      File.join(File.expand_path('../../artifacts', __FILE__), path)
     end
 
   end
