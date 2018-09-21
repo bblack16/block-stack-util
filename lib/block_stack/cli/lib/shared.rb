@@ -10,6 +10,12 @@ module BlockStack
       nil
     end
 
+    def self.app_path!
+      return if app_path
+      BBLib.logger.warn("Could not locate a valid block_stack application. Be sure to run this command within the directory of your app.")
+      exit(1)
+    end
+
     def self.load_commands(path = File.expand_path('../../commands', __FILE__))
       BBLib.scan_files(path, '*.rb').hmap do |file|
         [

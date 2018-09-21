@@ -1,10 +1,8 @@
-# require 'bblib/cli'
-require_relative '../../../../bblib/lib/bblib/cli'
-require_relative '../../../../bblib/lib/bblib/html'
-require_relative '../util'
-require_relative 'lib/constants'
-require_relative 'lib/shared'
-require_relative 'lib/parsers'
+require 'bblib/cli'
+require_relative 'util'
+require_relative 'cli/lib/constants'
+require_relative 'cli/lib/shared'
+require_relative 'cli/lib/parsers'
 
 module BlockStack
   module CLI
@@ -15,7 +13,7 @@ module BlockStack
 
     if COMMAND && COMMANDS.include?(COMMAND.to_sym)
       begin
-        require_relative "commands/#{COMMAND}"
+        require_relative "cli/commands/#{COMMAND}"
       rescue BBLib::OptsParserException => e
         puts "ERROR: #{e}"
         exit(1)

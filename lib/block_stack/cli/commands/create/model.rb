@@ -9,10 +9,7 @@ module BlockStack
       exit(0)
     end
 
-    unless app_path
-      BBLib.logger.warn("Could not locate a valid block_stack application. Be sure to run this command within the directory of your app.")
-      exit(1)
-    end
+    app_path!
 
     opts.name = opts.name.class_case
 

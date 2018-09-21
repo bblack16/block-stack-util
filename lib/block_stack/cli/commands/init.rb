@@ -18,25 +18,26 @@ module BlockStack
       'app/views'
     ]
 
+    SHARED_TEMPLATES = {
+      'run.rb' => artifact('shared/run.rb.erb'),
+      'console.rb' => artifact('shared/console.rb'),
+      'config/database.yml' => artifact('shared/database.yml.erb'),
+      'config/application.yml' => artifact('shared/application.yml.erb')
+    }
+
     API_TEMPLATES = {
-      'lib/server.rb' => File.join(ARTIFACT_PATH, 'api/server.rb.erb'),
-      'Gemfile' => File.join(ARTIFACT_PATH, 'api/Gemfile.erb'),
-      'run.rb' => File.join(ARTIFACT_PATH, 'api/run.rb.erb'),
-      'console.rb' => File.join(ARTIFACT_PATH, 'shared/console.rb'),
-      'config/database.yml' => File.join(ARTIFACT_PATH, 'shared/database.yml.erb')
+      'lib/server.rb' => artifact('api/server.rb.erb'),
+      'Gemfile' => artifact('api/Gemfile.erb')
     }
 
     UI_TEMPLATES = {
-      'lib/server.rb' => File.join(ARTIFACT_PATH, 'ui/server.rb.erb'),
-      'Gemfile' => File.join(ARTIFACT_PATH, 'ui/Gemfile.erb'),
-      'run.rb' => File.join(ARTIFACT_PATH, 'ui/run.rb.erb'),
-      'console.rb' => File.join(ARTIFACT_PATH, 'shared/console.rb'),
-      'config/database.yml' => File.join(ARTIFACT_PATH, 'shared/database.yml.erb')
+      'lib/server.rb' => artifact('ui/server.rb.erb'),
+      'Gemfile' => artifact('ui/Gemfile.erb')
     }
 
     options = Parsers::INIT.parse
 
-    if ['-h', '--help'].any? { |flag| options.app_name == flag } || options.help?
+    if options.app_name.nil? || options.app_name.empty? || ['-h', '--help'].any? { |flag| options.app_name == flag } || options.help?
       puts Parsers::INIT.help
       exit 0
     end
@@ -49,6 +50,10 @@ module BlockStack
 
     gen_folders(options.output, API_FOLDERS)
     gen_folders(options.output, UI_FOLDERS) unless options.api?
+
+    SHARED_TEMPLATES.each do |file, template|
+      render_template(template, File.join(options.output, file), options)
+    end
 
     if options.api?
       puts 'Generating base files for API...'
