@@ -8,4 +8,7 @@ module BlockStack
   def self.logger=(logger)
     @logger = logger
   end
+
+  # Set the default level to warnings only
+  logger.level = :warn
 end
