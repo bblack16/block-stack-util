@@ -8,9 +8,8 @@ module BlockStack
       self.format_keys  = :xml
 
       def process(body, params = {})
-        body = clean_values(body)
-        body = { data: body } unless body.is_a?(Hash)
-        '<?xml version="1.0" encoding="UTF-8"?>' +
+        body = { data: clean_values(body) }
+        '<?xml version="1.0" encoding="UTF-8"?>' + "\n" +
         Gyoku.xml(body, pretty_print: params[:pretty], key_converter: key_formatter)
       end
 
