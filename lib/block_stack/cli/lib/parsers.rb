@@ -4,7 +4,7 @@ module BlockStack
 
       INIT = BBLib::OptsParser.new do |o|
         o.usage 'Usage: block_stack init <APP_NAME> [options...]'
-        o.command position: 0, name: 'app_name', desc: 'The name of the application', default: 'help'
+        o.command position: 0, name: 'app_name', desc: 'The name of the application'
         o.toggle '-h', '--help', desc: 'Displays help for the init command'
         o.string '-c', '--class-name', desc: 'The class name for the server. If left blank the app_name argument is used to generate this.'
         o.string '-o', '-f', '--output', desc: 'The output path to create the new project within.'
