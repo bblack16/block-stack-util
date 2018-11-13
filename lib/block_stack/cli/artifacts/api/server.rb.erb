@@ -4,7 +4,8 @@ class <%= @options.class_name %> < BlockStack::Server
 
   # Set custom configuration for your application below.
   config(
-    app_name: '<%= @options.app_name.gsub('_', ' ').title_case %>'
+    app_name: '<%= @options.app_name.gsub('_', ' ').title_case %>',
+    parse_argv: true # Leave true to allow cmd line arguments to be parsed when the server is started
   )
 
   # Builds the default '/' route. Remove this or create your own index file

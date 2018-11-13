@@ -4,7 +4,9 @@ class <%= @options.class_name %> < BlockStack::Server
 
   # Set custom configuration for your application below.
   config(
-    app_name: '<%= @options.app_name.gsub('_', ' ').title_case %>'
+    app_name: '<%= @options.app_name.gsub('_', ' ').title_case %>',
+    parse_argv: true, # Leave true to allow cmd line arguments to be parsed when the server is started
+    public_folder: File.expand_path('../../public', __FILE__) # Where assets will be precompiled if toggle on
   )
 
   # Add path to custom assets. You can add additional paths by copying this line.

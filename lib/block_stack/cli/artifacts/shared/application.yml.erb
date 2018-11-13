@@ -4,11 +4,13 @@ production:
     bind: localhost
     port: 8080
   config:
-    log_leval: :debug
+    log_level: :info
+    precompile: true
+    sync_configs: false
 development:
   settings:
     bind: 0.0.0.0
-    port:
   config:
-    log_leval: :debug
-    precompile: true
+    log_level: :debug
+    precompile: false
+    sync_configs: true

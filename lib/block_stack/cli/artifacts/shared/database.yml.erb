@@ -1,12 +1,17 @@
 ---
 production:
-  type: :sqlite
-  environment: prod
+  adapter: :sqlite
+  name: :default
   configuration:
     - <%= @options.db_path %>
 
 development:
-  type: :sqlite
-  environment: dev
+  adapter: :sqlite
+  name: :default
   configuration:
     - <%= @options.test_db_path %>
+
+test:
+  adapter: :memory
+  name: :default
+  configuration: []
