@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
     f.match(%r{^(test|spec|features)/})
   end
   spec.bindir        = "bin"
-  spec.executables   = ['block-stack']
+  spec.executables   = ['blockstack']
   spec.require_paths = ["lib"]
 
   spec.add_runtime_dependency 'bblib', '~> 2.0'
