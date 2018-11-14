@@ -5,7 +5,8 @@ class <%= @options.class_name %> < BlockStack::Server
   # Set custom configuration for your application below.
   config(
     app_name: '<%= @options.app_name.gsub('_', ' ').title_case %>',
-    parse_argv: true # Leave true to allow cmd line arguments to be parsed when the server is started
+    parse_argv: true, # Leave true to allow cmd line arguments to be parsed when the server is started
+    config_folder: File.expand_path('../../config', __FILE__) # Location to load any yml or json files from as config
   )
 
   load_configs
