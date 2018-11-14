@@ -1,4 +1,4 @@
-class <%= @options.class_name %>
+class <%= @options.name %>
   include BlockStack::Model::Dynamic()
 
   <% @options.fields.each do |field, type| %>

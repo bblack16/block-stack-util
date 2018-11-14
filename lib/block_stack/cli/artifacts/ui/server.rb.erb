@@ -9,6 +9,8 @@ class <%= @options.class_name %> < BlockStack::Server
     public_folder: File.expand_path('../../public', __FILE__) # Where assets will be precompiled if toggle on
   )
 
+  load_configs
+
   # Add path to custom assets. You can add additional paths by copying this line.
   add_asset_path(File.expand_path('../../app', __FILE__))
 

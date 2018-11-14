@@ -8,6 +8,8 @@ class <%= @options.class_name %> < BlockStack::Server
     parse_argv: true # Leave true to allow cmd line arguments to be parsed when the server is started
   )
 
+  load_configs
+
   # Builds the default '/' route. Remove this or create your own index file
   # in views.
   get_api '/' do
