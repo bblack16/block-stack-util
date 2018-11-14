@@ -46,7 +46,7 @@ module BlockStack
     options.class_name = options.app_name.to_s.class_case unless options.class_name
 
     options.db_path = File.join(options.output, "data/#{options.class_name.method_case}.db")
-    options.test_db_path = File.join(options.output, "data/test_#{options.class_name.method_case}.db")
+    options.dev_db_path = File.join(options.output, "data/#{options.class_name.method_case}_dev.db")
 
     gen_folders(options.output, API_FOLDERS)
     gen_folders(options.output, UI_FOLDERS) unless options.api?
