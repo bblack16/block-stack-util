@@ -4,8 +4,13 @@ module BlockStack
   module CLI
     app_path!
 
-    opts = Parsers::RUN.parse
+    load_app_context
 
-    load File.join(app_path, 'console.rb')
+    if (require 'pry' rescue false)
+      pry
+    else
+      require 'irb'
+      binding.irb
+    end
   end
 end

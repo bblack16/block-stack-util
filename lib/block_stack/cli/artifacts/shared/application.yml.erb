@@ -1,17 +1,20 @@
 ---
-production:
-  settings:
-    bind: localhost
-    port: 8080
-  config:
-    log_level: :info
-    precompile: true
-    sync_configs: false
-development:
-  settings:
-    bind: 0.0.0.0
-  config:
-    log_level: :debug
-    precompile: false
-    hot_load: true
-    sync_configs: true
+config:
+  app_name: '<%= @options.module_name %>'
+environments:
+  production:
+    settings:
+      bind: localhost
+      port: 8080
+    config:
+      log_level: :info
+      precompile: true
+      sync_configs: false
+  development:
+    settings:
+      bind: 0.0.0.0
+    config:
+      log_level: :debug
+      precompile: false
+      hot_load: true
+      sync_configs: true

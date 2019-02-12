@@ -4,6 +4,8 @@ require_relative 'cli/lib/constants'
 require_relative 'cli/lib/shared'
 require_relative 'cli/lib/parsers'
 
+require 'yaml'
+
 module BlockStack
   module CLI
 

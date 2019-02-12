@@ -1,26 +1,28 @@
 require 'block_stack/ui'
 
-class <%= @options.class_name %> < BlockStack::Server
+module <%= @options.module_name %>
+  class Server < BlockStack::Server
 
-  # Set custom configuration for your application below.
-  config(
-    app_name: '<%= @options.app_name.gsub('_', ' ').title_case %>',
-    parse_argv: true, # Leave true to allow cmd line arguments to be parsed when the server is started
-    public_folder: File.expand_path('../../public', __FILE__), # Where assets will be precompiled if toggle on
-    config_folder: File.expand_path('../../config', __FILE__) # Location to load any yml or json files from as config
-  )
+    # Set custom configuration for your application below.
+    config(
+      app_name: '<%= @options.app_name.gsub('_', ' ').title_case %>',
+      parse_argv: true, # Leave true to allow cmd line arguments to be parsed when the server is started
+      public_folder: File.expand_path('../../public', __FILE__), # Where assets will be precompiled if toggle on
+      config_folders: [File.expand_path('../../config', __FILE__)] # Location to load any yml or json files from as config
+    )
 
-  # The line below will attempt to load any config files in the relative config directory.
-  # To disable this either set the config.config_folder setting to nil or comment out the line
-  # below.
-  load_configs
+    # The line below will attempt to load any config files in the relative config directory.
+    # To disable this either set the config.config_folder setting to nil or comment out the line
+    # below.
+    load_configs
 
-  # Add path to custom assets. You can add additional paths by copying this line.
-  add_asset_path(File.expand_path('../../app', __FILE__))
+    # Add path to custom assets. You can add additional paths by copying this line.
+    add_asset_path(File.expand_path('../../app', __FILE__))
 
-  # Builds the default '/' route. Remove this or create your own index file
-  # in views.
-  get '/' do
-    slim :index
+    # Builds the default '/' route. Remove this or create your own index file
+    # in views.
+    get '/' do
+      slim :index
+    end
   end
 end

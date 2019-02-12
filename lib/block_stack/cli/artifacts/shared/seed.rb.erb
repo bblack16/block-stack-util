@@ -1,0 +1,15 @@
+require_relative '../lib/server'
+
+module <%= @options.module_name %>
+
+  Server.load_configs
+
+  # By default this will load all *.rb files from the seeds directory relative
+  # to this file. These are automatically created for each model when using
+  # "blockstack create model". The convention is for each model that needs
+  # to seed the database to have a single seed file with the model name in
+  # snake case as the file name.
+  BBLib.scan_files(File.expand_path('seeds', __dir__), '*.rb', recursive: true) do |file|
+    require_relative file
+  end
+end

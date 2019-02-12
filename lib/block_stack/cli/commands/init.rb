@@ -9,7 +9,8 @@ module BlockStack
       'app/models',
       'app/controllers',
       'config',
-      'data'
+      'data',
+      'scripts'
     ]
 
     UI_FOLDERS = [
@@ -19,8 +20,9 @@ module BlockStack
     ]
 
     SHARED_TEMPLATES = {
+      '.gitignore' => artifact('shared/.gitignore'),
       'run.rb' => artifact('shared/run.rb.erb'),
-      'console.rb' => artifact('shared/console.rb'),
+      'scripts/seed.rb' => artifact('shared/seed.rb.erb'),
       'config/database.yml' => artifact('shared/database.yml.erb'),
       'config/application.yml' => artifact('shared/application.yml.erb')
     }
@@ -43,13 +45,15 @@ module BlockStack
     end
 
     options.output = File.join(options.output || Dir.pwd, options.app_name.method_case)
-    options.class_name = options.app_name.to_s.class_case unless options.class_name
+    options.module_name = options.app_name.to_s.class_case unless options.module_name
 
-    options.db_path = File.join(options.output, "data/#{options.class_name.method_case}.db")
-    options.dev_db_path = File.join(options.output, "data/#{options.class_name.method_case}_dev.db")
+    options.db_path = File.join(options.output, "data/#{options.module_name.method_case}.db")
+    options.dev_db_path = File.join(options.output, "data/#{options.module_name.method_case}_dev.db")
 
     gen_folders(options.output, API_FOLDERS)
     gen_folders(options.output, UI_FOLDERS) unless options.api?
+
+    options.keys_to_s.to_yaml.to_file(File.join(options.output,'config/metadata.yml'))
 
     SHARED_TEMPLATES.each do |file, template|
       render_template(template, File.join(options.output, file), options)

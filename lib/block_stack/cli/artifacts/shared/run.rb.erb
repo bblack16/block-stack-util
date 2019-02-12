@@ -1,4 +1,4 @@
 require_relative 'lib/server'
 
-<%= @options.class_name %>.load_configs
-<%= @options.class_name %>.run!
+<%= @options.module_name %>::Server.load_configs
+<%= @options.module_name %>::Server.run!

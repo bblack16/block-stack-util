@@ -16,6 +16,25 @@ module BlockStack
       exit(1)
     end
 
+    def self.app_metadata
+      return {} unless path = app_path
+      config = File.join(path, 'config/metadata.yml')
+      {
+        module_name: path.split('/').last.class_case,
+        app_path: path
+      }.tap do |info|
+        if (File.exist?(config))
+          info.merge!(YAML.load_file(config).keys_to_sym)
+        else
+          BBLib.logger.warn('Failed to find a config/metadata.yml file to load. Using default detection via file system.')
+        end
+      end
+    end
+
+    def self.app_module
+      const_get(app_metadata[:module_name])
+    end
+
     def self.load_commands(path = File.expand_path('../../commands', __FILE__))
       BBLib.scan_files(path, '*.rb').hmap do |file|
         [
@@ -28,7 +47,7 @@ module BlockStack
     def self.default_options
       {
         block_stack_version: BLOCK_STACK_VERSION
-      }
+      }.merge(app_metadata)
     end
 
     def self.logo
@@ -70,7 +89,7 @@ module BlockStack
     def self.render_template(template_file, output, opts = {})
       require 'erb' unless defined?(ERB)
       if !File.exist?(output) || opts.delete(:overwrite)
-        @options = opts.merge(default_options)
+        @options = opts.merge(default_options).to_hash_struct
         log("Creating template for #{output.file_name} (#{template_file.file_name(false)})", :info)
         ERB.new(File.read(template_file)).result(opts.delete(:binding) || binding).to_file(output, mode: 'w')
       else
@@ -80,6 +99,11 @@ module BlockStack
 
     def self.artifact(path)
       File.join(File.expand_path('../../artifacts', __FILE__), path)
+    end
+
+    def self.load_app_context
+      require_relative "#{app_path}/lib/server"
+      app_module.const_get('Server').load_configs
     end
 
   end

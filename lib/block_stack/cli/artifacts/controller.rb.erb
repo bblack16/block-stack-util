@@ -1,5 +1,7 @@
-class <%= @options.name %> < BlockStack::Controller
-  <% if @options.crud? %>
-  <%= 'crud' %>
-  <% end %>
+module <%= @options.module_name %>
+  class <%= @options.name %> < BlockStack::Controller
+    <% if @options.crud? %>
+    <%= 'crud' %>
+    <% end %>
+  end
 end

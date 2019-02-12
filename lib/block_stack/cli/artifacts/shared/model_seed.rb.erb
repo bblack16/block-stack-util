@@ -1,0 +1,23 @@
+module <%= @options.module_name %>
+
+  # Use create statements or new().save to seed the database. To make seeding
+  # idempotent, be sure to set :unique_by on the model's config to something
+  # other than just :id (which is default).
+  class <%= @options.name %>
+
+    # Example below to create instances of this model via the seed job
+    # ----------------------------------------------------------------
+    # create_many(
+    #   { name: 'example' },
+    #   { name: 'example2' }
+    # )
+
+    # To seed a specific environment be sure to wrap the create in an if statement
+    # ----------------------------------------------------------------------------
+    # if Server.environment == :development
+    #   create(...)
+    # end
+
+  end
+
+end

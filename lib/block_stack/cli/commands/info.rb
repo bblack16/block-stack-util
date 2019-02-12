@@ -2,7 +2,6 @@
 
 module BlockStack
   module CLI
-
-    puts app_info.to_yaml
+    puts app_metadata.to_yaml
   end
 end

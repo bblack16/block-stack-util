@@ -11,7 +11,15 @@ module BlockStack
 
     app_path!
 
+    if opts.name.include?('/')
+      split = opts.name.split('/')
+      opts.path = 'app/models/' + split[0..-2].join('/')
+      opts.name = split.last
+    else
+      opts.path = 'app/models'
+    end
+
     opts.name = opts.name.class_case
-    render_template(artifact('controller.rb.erb'), File.join(app_path, "app/controllers/#{opts.name.method_case}.rb"), opts)
+    render_template(artifact('controller.rb.erb'), File.join(app_path, "#{opts.path}/#{opts.name.method_case}.rb"), opts)
   end
 end

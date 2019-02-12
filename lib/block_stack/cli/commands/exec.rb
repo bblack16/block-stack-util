@@ -4,7 +4,7 @@ module BlockStack
   module CLI
 
     def self.script_dir
-      File.join(script_dir, 'scripts')
+      File.join(app_path, 'scripts')
     end
 
     def self.scripts
@@ -17,8 +17,7 @@ module BlockStack
 
     if options.script_help? || !options.script
       puts Parsers::EXEC.help
-      print '-' * 20, '< Scripts >', '-' * 20, "\n\t"
-      puts scripts.keys.join("\n\t")
+      puts "\nScripts: " + (scripts.empty? ? 'None Found' : ("\n\t" + scripts.keys.join("\n\t")))
       exit 0
     end
 
