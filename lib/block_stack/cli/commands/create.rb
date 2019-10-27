@@ -7,7 +7,7 @@ module BlockStack
 
     opts = Parsers::CREATE.parse
 
-    if SUB_COMMANDS.include?(opts.sub_command)
+    if !opts[:help] || SUB_COMMANDS.include?(opts.sub_command)
       require_relative "create/#{opts.sub_command}"
     else
       require_relative 'create/help'
