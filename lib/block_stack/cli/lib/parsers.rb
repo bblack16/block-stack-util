@@ -34,7 +34,7 @@ module BlockStack
       end
 
       CREATE_MODEL = BBLib::OptsParser.new do |opts|
-        opts.usage 'Usage: blockstack create model <NAME> [fields...] [options...]'
+        opts.usage 'Usage: blockstack create model <NAME> [fields...<name:type>] [options...]'
         opts.at(1, name: :name, desc: 'The name of the model. Should not be plural, but casing does not matter.')
         opts.symbol('--db', '--database', name: :database, desc: 'The name of the database to use. Uses :default if not specified.')
         opts.toggle('-h', '--help', desc: 'Display help')
