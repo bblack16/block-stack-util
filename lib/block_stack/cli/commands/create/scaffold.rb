@@ -4,7 +4,7 @@ module BlockStack
   module CLI
     opts = Parsers::CREATE_SCAFFOLD.parse
 
-    if opts.help? || !opts.name
+    if opts.help? || !opts.name || opts.name == '-h' || opts.name == '--help'
       puts Parsers::CREATE_SCAFFOLD.help
       exit(0)
     end

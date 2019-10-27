@@ -23,7 +23,7 @@ module BlockStack
       CREATE = BBLib::OptsParser.new do |o|
         o.usage 'Usage: blockstack create <SUB COMMAND> [options...]'
         o.at(0, name: :sub_command, desc: 'The type of object(s) to create.', default: 'help') { |x| x.to_sym }
-        opts.toggle('-h', '--help', desc: 'Display help')
+        o.toggle('-h', '--help', desc: 'Display help')
       end
 
       CREATE_CONTROLLER = BBLib::OptsParser.new do |opts|
