@@ -66,7 +66,7 @@ module BlockStack
       max = commands.keys.map(&:to_s).map(&:size).max + 3
       logo + "\n" +
       "Usage: block_stack <command> [options...]" +
-      "Help:  block_stack <command> -h" +
+      "\nHelp:  block_stack <command> -h" +
       "\n\nCOMMANDS:\n\n\t" +
       commands.map { |command, desc| "#{command.to_s.ljust(max, ' ')}#{desc}"}.join("\n\t")
     end
