@@ -31,6 +31,6 @@ module BlockStack
 
     # Change class name for controller
     opts.name = "#{opts.name}Controller"
-    render_template(artifact('controller.rb.erb'), File.join(app_path, "app/controllers/#{opts.name.method_case}.rb"), opts)
+    render_template(artifact('controller.rb.erb'), File.join(app_path, "#{opts.path.sub('models', 'controllers')}/#{opts.name.method_case}.rb"), opts)
   end
 end
