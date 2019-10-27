@@ -92,7 +92,7 @@ module BlockStack
       if !File.exist?(output) || opts.delete(:overwrite)
         @options = opts.merge(default_options).to_hash_struct
         log("Creating template for #{output.file_name} (#{template_file.file_name(false)})", :info)
-        ERB.new(File.read(template_file)).result(opts.delete(:binding) || binding).to_file(output, mode: 'w')
+        ERB.new(File.read(template_file), nil, '-').result(opts.delete(:binding) || binding).to_file(output, mode: 'w')
       else
         log("Skipping template #{template_file} since the file already exists at #{output}", :warn)
       end
