@@ -2,6 +2,7 @@
 
 module BlockStack
   module CLI
-    puts app_metadata.to_yaml
+    options = Parsers::INFO.parse
+    puts Formatter.format(options.format, app_metadata)
   end
 end

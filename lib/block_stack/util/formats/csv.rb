@@ -19,32 +19,10 @@ module BlockStack
         require 'csv'
         headers = headers.split(',') if headers.is_a?(String)
         rows = BlockStack.to_hash_rows(data, headers)
-        p rows
         ::CSV.generate(col_sep: delimiter) do |csv|
           csv << rows.first.keys
           rows.each { |row| csv << row.values }
         end
-        # columns = [:data]
-        # content = [data]
-        # case data
-        # when Array
-        #   if data.all? { |d| d.is_a?(Hash) }
-        #     columns = data.map(&:keys).uniq
-        #     content = data.map do |line|
-        #       columns.map { |h| line[h] }
-        #     end
-        #   end
-        # when Hash
-        #   # TODO Support hash with arrays as values (somehow?)
-        #   columns = data.keys
-        #   content = data.values
-        # end
-        # content = [content] unless content.is_a?(Array) && content.all? { |c| c.is_a?(Array) }
-        # header = columns.map { |col| "\"#{col.to_s.gsub('"', '\\"')}\"" }.join(delimiter) + "\n"
-        # rows = content.map do |row|
-        #   row.map { |value| "\"#{value.to_s.gsub('"', '\\"')}\"" }.join(delimiter)
-        # end.join("\n")
-        # header + rows
       end
     end
 

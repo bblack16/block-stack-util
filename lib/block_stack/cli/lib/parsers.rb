@@ -52,6 +52,12 @@ module BlockStack
         opts.toggle('--script-help', desc: 'Display help for the script command. -h and other flags are passed to the script itself.')
       end
 
+      INFO = BBLib::OptsParser.new do |o|
+        o.usage 'Usage: blockstack info [options...]'
+        o.symbol(name: :format, desc: 'The output format of the info command. Can be list, json, yaml, xml or csv', default: 'list')
+        o.toggle('-h', '--help', desc: 'Show help for this command.')
+      end
+
     end
   end
 end
