@@ -12,7 +12,7 @@ module BlockStack
             process_value(v)
           ]
         end
-        processed = processed.sort_by { |k, v| k }.to_h unless params.include?(:sort) && !params[:sort]
+        processed = processed.sort_by { |k, v| k }.to_h if params[:sort]
         spacing = processed.map { |k, v| k.to_s.size }.max + (params[:extra_padding] || 3)
         processed.map do |field, value|
           key = params[:right_justify] ? "#{field}: ".rjust(spacing) : "#{field}:".ljust(spacing)
