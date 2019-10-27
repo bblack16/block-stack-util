@@ -6,16 +6,23 @@ module BlockStack
       self.format_keys  = :list
 
       def process(body, params = {})
-        spacing = body.max { |k, v| k.to_s.size } + 2
-        body.map do |field, value|
-          "#{field}:".ljust(spacing) + process_value(value, params)
+        processed = body.hmap do |k, v|
+          [
+            k.to_s.gsub(/[-_.]/, ' ').title_case,
+            process_value(v)
+          ]
         end
+        spacing = processed.map { |k, v| k.to_s.size }.max + (params[:extra_padding] || 3)
+        processed.map do |field, value|
+          key = params[:right_justify] ? "#{field}: ".rjust(spacing) : "#{field}:".ljust(spacing)
+          key + value
+        end.join("\n")
       end
 
       def process_value(value, params = {})
-        fallback = params.fallback || :json
+        fallback = params[:fallback] || :json
         case (value)
-        when Map, ArrayList
+        when Hash, Array
           Formatter.process(fallback, value)
         else
           value.to_s
